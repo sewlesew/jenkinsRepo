@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Room Reservation </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+    
+    
+        <p> Greetings  <span th:text="${name}"> </span> </p>
+  
+            <H4> We have received your room reservation order !</H4>
+  
+        <p>Here are your reservation details:</p>
+        
+ 		<p><b> First Name: </b> <span th:text="${customer.firstName}"></span></p>
+ 		<p><b>Last Name: </b> <span th:text="${customer.lastName}"></span></p>
+ 		<p><b>Phone Number: </b> <span th:text="${customer.customerNumber}"></span></p>
+ 		
+     <div th:each="item : ${customer.rooms}" >  
+  <div style="text-indent: 3em;">		
+	 		
+<!-- 	 		<p><b>Price: </b> <span th:text="${item.product.price}"></span></p> -->
+</div>	
+	 		<p><b>Book from Date: </b> <span th:text="${item.arrivalDate}"></span></p>
+	 		<p><b>Book to : </b> <span th:text="${item.departureDate}"></span></p>
+		</div>
+		
+ 		
+         <p><br />
+            Thanks for your reservation in our hotel, <br />
+            &emsp; <em><b>General Manager, Gladiators Hotel</b></em>
+        </p>
+    </body>
+</html>

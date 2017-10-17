@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:amqp="http://www.springframework.org/schema/integration/amqp"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:stream="http://www.springframework.org/schema/integration/stream"
+	
+	  xmlns:context="http://www.springframework.org/schema/context"
+	  
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+ 			http://www.springframework.org/schema/integration/mail
+    		http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd
+ 			http://www.springframework.org/schema/integration/amqp 
+ 				http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd
+    		http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+			http://www.springframework.org/schema/integration/stream
+			http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+ 
+    <!--  <channel id="fromAmqpOrder" />
+ 	<amqp:inbound-channel-adapter channel="fromAmqpOrder"
+		queue-names="roomQueue" connection-factory="amqpConnectionFactory" />
+ 
+	<channel id="fromAmqpOrder" />
+	
+	-->	
+	
+	
+	
+     <gateway id="customerGate" service-interface="edu.mum.integration.CustomerGateway"
+			 default-request-channel="fromCustomerGateway"/>
+ 
+	<channel id="fromCustomerGateway" />
+	
+
+		<channel id="mailChannel" />
+
+<recipient-list-router id="customRouter" input-channel="fromCustomerGateway" >
+      
+  <recipient channel="mailChannel"/>
+</recipient-list-router>
+
+   <chain input-channel="mailChannel">
+ 	    <service-activator id="emailActivator" ref="emailService"/>
+	    <mail:outbound-channel-adapter id="emailSender" mail-sender="mailSender" />
+	</chain>
+	
+	
+</beans:beans>
