@@ -10,7 +10,7 @@ import org.aspectj.lang.annotation.Pointcut;
 @org.aspectj.lang.annotation.Aspect
 public class LoggerAspect {
     
-    
+    //Note:
      @Pointcut("execution(* edu.mum.service..*(..))")
            public void applicationMethod() {}
 
